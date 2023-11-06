@@ -209,218 +209,224 @@ class MessengerScreen extends StatelessWidget{
             SizedBox(
               height: 40.0,
             ),
-            Row(
-              children: [
-                Stack(
-                  alignment: AlignmentDirectional.bottomEnd,
-                  children: [
-                    CircleAvatar(
-                      radius: 30.0,
-                      backgroundColor: Colors.blue,
-                    ),
-
-                    Padding(
-                      padding: const EdgeInsetsDirectional.only(
-                        bottom: 3.0,
-                        end: 3.0,
-                      ),
-                      child: CircleAvatar(
-                        radius: 8.0,
-                        backgroundColor: Colors.green,
-                      ),
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  width: 10.0,
-                ),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+            SingleChildScrollView(
+              child: Column(
+                children: [
+                  Row(
                     children: [
-                      Text(
-                        'Sara Mahmoud',
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
-                          fontSize: 16.0,
-                          fontWeight: FontWeight.bold,
-                        ),
+                      Stack(
+                        alignment: AlignmentDirectional.bottomEnd,
+                        children: [
+                          CircleAvatar(
+                            radius: 30.0,
+                            backgroundColor: Colors.blue,
+                          ),
+
+                          Padding(
+                            padding: const EdgeInsetsDirectional.only(
+                              bottom: 3.0,
+                              end: 3.0,
+                            ),
+                            child: CircleAvatar(
+                              radius: 8.0,
+                              backgroundColor: Colors.green,
+                            ),
+                          ),
+                        ],
                       ),
                       SizedBox(
-                        height: 5.0,
+                        width: 10.0,
                       ),
-                      Row(
-                        children: [
-                          Expanded(
-                            child: Text(
-                              'contains massege here contains massege here contains massege here contains massege here',
-                              maxLines: 2,
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Sara Mahmoud',
+                              maxLines: 1,
                               overflow: TextOverflow.ellipsis,
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 10),
-                            child: Container(
-                              width: 7,
-                              height: 7,
-                              decoration: BoxDecoration(
-                                color: Colors.blue,
-                                shape: BoxShape.circle,
+                              style: TextStyle(
+                                fontSize: 16.0,
+                                fontWeight: FontWeight.bold,
                               ),
                             ),
-                          ),
-                          Text('02:00 pm'),
-                        ],
+                            SizedBox(
+                              height: 5.0,
+                            ),
+                            Row(
+                              children: [
+                                Expanded(
+                                  child: Text(
+                                    'contains massege here contains massege here contains massege here contains massege here',
+                                    maxLines: 2,
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                                  child: Container(
+                                    width: 7,
+                                    height: 7,
+                                    decoration: BoxDecoration(
+                                      color: Colors.blue,
+                                      shape: BoxShape.circle,
+                                    ),
+                                  ),
+                                ),
+                                Text('02:00 pm'),
+                              ],
+                            ),
+                          ],
+                        ),
                       ),
                     ],
                   ),
-                ),
-              ],
-            ),
-            SizedBox(
-              height: 15.0,
-            ),
-            Row(
-              children: [
-                Stack(
-                  alignment: AlignmentDirectional.bottomEnd,
-                  children: [
-                    CircleAvatar(
-                      radius: 30.0,
-                      backgroundColor: Colors.blue,
-                    ),
-
-                    Padding(
-                      padding: const EdgeInsetsDirectional.only(
-                        bottom: 3.0,
-                        end: 3.0,
-                      ),
-                      child: CircleAvatar(
-                        radius: 8.0,
-                        backgroundColor: Colors.green,
-                      ),
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  width: 10.0,
-                ),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                  SizedBox(
+                    height: 15.0,
+                  ),
+                  Row(
                     children: [
-                      Text(
-                        'Sara Mahmoud',
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
-                          fontSize: 16.0,
-                          fontWeight: FontWeight.bold,
-                        ),
+                      Stack(
+                        alignment: AlignmentDirectional.bottomEnd,
+                        children: [
+                          CircleAvatar(
+                            radius: 30.0,
+                            backgroundColor: Colors.blue,
+                          ),
+
+                          Padding(
+                            padding: const EdgeInsetsDirectional.only(
+                              bottom: 3.0,
+                              end: 3.0,
+                            ),
+                            child: CircleAvatar(
+                              radius: 8.0,
+                              backgroundColor: Colors.green,
+                            ),
+                          ),
+                        ],
                       ),
                       SizedBox(
-                        height: 5.0,
+                        width: 10.0,
                       ),
-                      Row(
-                        children: [
-                          Expanded(
-                            child: Text(
-                              'contains massege here contains massege here contains massege here contains massege here',
-                              maxLines: 2,
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Sara Mahmoud',
+                              maxLines: 1,
                               overflow: TextOverflow.ellipsis,
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 10),
-                            child: Container(
-                              width: 7,
-                              height: 7,
-                              decoration: BoxDecoration(
-                                color: Colors.blue,
-                                shape: BoxShape.circle,
+                              style: TextStyle(
+                                fontSize: 16.0,
+                                fontWeight: FontWeight.bold,
                               ),
                             ),
-                          ),
-                          Text('02:00 pm'),
-                        ],
+                            SizedBox(
+                              height: 5.0,
+                            ),
+                            Row(
+                              children: [
+                                Expanded(
+                                  child: Text(
+                                    'contains massege here contains massege here contains massege here contains massege here',
+                                    maxLines: 2,
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                                  child: Container(
+                                    width: 7,
+                                    height: 7,
+                                    decoration: BoxDecoration(
+                                      color: Colors.blue,
+                                      shape: BoxShape.circle,
+                                    ),
+                                  ),
+                                ),
+                                Text('02:00 pm'),
+                              ],
+                            ),
+                          ],
+                        ),
                       ),
                     ],
                   ),
-                ),
-              ],
-            ),
-            SizedBox(
-              height: 15.0,
-            ),
-            Row(
-              children: [
-                Stack(
-                  alignment: AlignmentDirectional.bottomEnd,
-                  children: [
-                    CircleAvatar(
-                      radius: 30.0,
-                      backgroundColor: Colors.blue,
-                    ),
-
-                    Padding(
-                      padding: const EdgeInsetsDirectional.only(
-                        bottom: 3.0,
-                        end: 3.0,
-                      ),
-                      child: CircleAvatar(
-                        radius: 8.0,
-                        backgroundColor: Colors.green,
-                      ),
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  width: 10.0,
-                ),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                  SizedBox(
+                    height: 15.0,
+                  ),
+                  Row(
                     children: [
-                      Text(
-                        'Sara Mahmoud',
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
-                          fontSize: 16.0,
-                          fontWeight: FontWeight.bold,
-                        ),
+                      Stack(
+                        alignment: AlignmentDirectional.bottomEnd,
+                        children: [
+                          CircleAvatar(
+                            radius: 30.0,
+                            backgroundColor: Colors.blue,
+                          ),
+
+                          Padding(
+                            padding: const EdgeInsetsDirectional.only(
+                              bottom: 3.0,
+                              end: 3.0,
+                            ),
+                            child: CircleAvatar(
+                              radius: 8.0,
+                              backgroundColor: Colors.green,
+                            ),
+                          ),
+                        ],
                       ),
                       SizedBox(
-                        height: 5.0,
+                        width: 10.0,
                       ),
-                      Row(
-                        children: [
-                          Expanded(
-                            child: Text(
-                              'contains massege here contains massege here contains massege here contains massege here',
-                              maxLines: 2,
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Sara Mahmoud',
+                              maxLines: 1,
                               overflow: TextOverflow.ellipsis,
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 10),
-                            child: Container(
-                              width: 7,
-                              height: 7,
-                              decoration: BoxDecoration(
-                                color: Colors.blue,
-                                shape: BoxShape.circle,
+                              style: TextStyle(
+                                fontSize: 16.0,
+                                fontWeight: FontWeight.bold,
                               ),
                             ),
-                          ),
-                          Text('02:00 pm'),
-                        ],
+                            SizedBox(
+                              height: 5.0,
+                            ),
+                            Row(
+                              children: [
+                                Expanded(
+                                  child: Text(
+                                    'contains massege here contains massege here contains massege here contains massege here',
+                                    maxLines: 2,
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                                  child: Container(
+                                    width: 7,
+                                    height: 7,
+                                    decoration: BoxDecoration(
+                                      color: Colors.blue,
+                                      shape: BoxShape.circle,
+                                    ),
+                                  ),
+                                ),
+                                Text('02:00 pm'),
+                              ],
+                            ),
+                          ],
+                        ),
                       ),
                     ],
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ],
         ),
