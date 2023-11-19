@@ -1,8 +1,14 @@
+
+import 'dart:ffi';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/models/archived_tasks/archived_tasks_screen.dart';
 import 'package:flutter_app/models/done_tasks/done_tasks_screen.dart';
 import 'package:flutter_app/models/new_tasks/new_tasks_screen.dart';
+import 'package:flutter_app/shared/components/components.dart';
+import 'package:intl/intl.dart';
+import 'package:sqflite/sqflite.dart';
 
 class HomeLayout extends StatefulWidget {
 
@@ -21,9 +27,25 @@ class _HomeLayoutState extends State<HomeLayout> {
     ArchivedTasksScreen(),
   ];
 
+  late Database database;
+  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
+  var formKey = GlobalKey<FormState>();
+  bool isBottomSheetShown =false;
+  IconData fabIcon = Icons.edit;
+  var titleController =TextEditingController();
+  var timeController =TextEditingController();
+  var dateController =TextEditingController();
+
+  @override
+  void initState(){
+    super.initState();
+    createDatabase();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: scaffoldKey,
       appBar: AppBar(
         title: Text(
             'Todo App'
@@ -32,9 +54,124 @@ class _HomeLayoutState extends State<HomeLayout> {
       body: screen[currentIndex],
       floatingActionButton: FloatingActionButton(
         child: Icon(
-          Icons.add,
+          fabIcon,
         ),
-        onPressed: (){},
+        onPressed: (){
+          if(isBottomSheetShown){
+            if(formKey.currentState!.validate()){
+              insertToDatabase(
+                title: titleController.text,
+                time: timeController.text,
+                date: dateController.text,
+              ).then((value){
+                Navigator.pop(context);
+                isBottomSheetShown=false;
+                setState((){
+                  fabIcon=Icons.edit;
+                });
+              });
+
+            }
+
+          }
+          else{
+            scaffoldKey.currentState?.showBottomSheet(
+                  (context) =>Container(
+                    color: Colors.grey[100],
+                    padding: EdgeInsets.all(20.0),
+                    child: Form(
+                      key: formKey,
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          defaultFormField(
+                              controller: titleController,
+                              type: TextInputType.text,
+                              validate: (value){
+                                if(value!.isEmpty){
+                                  return 'title must not be empty';
+                                }
+                                return null;
+                              },
+                              label: 'Task Title',
+                              prefix: Icons.title,
+                              suffixPressed: (){},
+                          ),
+                          SizedBox(height: 8.0,),
+                          defaultFormField(
+                            controller: timeController,
+                            type: TextInputType.datetime,
+                            validate: (value){
+                              if(value!.isEmpty){
+                                return 'time must not be empty';
+                              }
+                              return null;
+                            },
+                            label: 'Task Time',
+                            prefix: Icons.timelapse,
+                            suffixPressed: (){},
+                            onTap: (){
+                              showTimePicker(
+                                  context: context,
+                                  initialTime: TimeOfDay.now()
+                              ).then((value) {
+                                timeController.text = (value?.format(context)).toString();
+                                print(value?.format(context));
+                              });
+                            },
+                          ),
+                          SizedBox(height: 8.0,),
+                          defaultFormField(
+                            controller: dateController,
+                            type: TextInputType.datetime,
+                            validate: (value){
+                              if(value!.isEmpty){
+                                return 'date must not be empty';
+                              }
+                              return null;
+                            },
+                            label: 'Task Date',
+                            prefix: Icons.timelapse,
+                            suffixPressed: (){},
+                            onTap: (){
+                              showDatePicker(
+                              context: context,
+                              initialDate: DateTime.now(),
+                              firstDate: DateTime.now(),
+                              lastDate: DateTime.parse('2024-12-01')
+                              ).then((value){
+                                dateController.text = DateFormat().add_yMMMd().format(value!);
+                                });
+                            },
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+            );
+            isBottomSheetShown=true;
+            setState((){
+              fabIcon=Icons.add;
+            });
+          }
+
+          // showModalBottomSheet(
+          //     shape: RoundedRectangleBorder(
+          //     borderRadius: BorderRadius.vertical(
+          //     top: Radius.circular(30),
+          // ),
+          // ),
+          //   context: context,
+          //   builder: (context){
+          //       return Container(
+          //           width: double.infinity,
+          //           height: 120.0,
+          //           color: Colors.blue,
+          //       );
+          //   }
+          // );
+          //insertToDatabase();
+        },
       ),
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
@@ -65,5 +202,39 @@ class _HomeLayoutState extends State<HomeLayout> {
         ),
       ],),
     );
+  }
+
+  Future<String> getString() async {
+    return 'background Function';
+  }
+
+  void createDatabase() async{
+    database = await openDatabase(
+      'todo.db',
+      version: 1,
+      onCreate: (database,version) async{
+        print('database created');
+        await database.execute('CREATE TABLE tasks(id INTEGER PRIMARY KEY, title TEXT, date TEXT, time TEXT, status TEXT)').then((value) {
+          print('table created');
+        }).catchError((error){
+          print('Error when creating table ${error.toString()}');
+        });
+      },
+      onOpen: (database){
+        print('database opened');
+      },
+    );
+  }
+
+  Future insertToDatabase({
+    required String title,
+    required String time,
+    required String date,
+}) async{
+     return await database.transaction((txn) async{
+      await txn.rawInsert('INSERT INTO tasks(title,date,time,status) VALUES("$title","$date","$time","status")').then((value){
+        print('raw inserted');
+      }).catchError((error){});
+    });
   }
 }

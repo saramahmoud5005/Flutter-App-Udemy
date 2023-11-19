@@ -30,17 +30,21 @@ Widget defaultFormField({
   required TextEditingController controller,
   required TextInputType type,
   bool isPassword = false,
-required String? Function(String?)? validate,
+  required String? Function(String?)? validate,
   required String label,
   required IconData prefix,
   IconData? suffix,
   required Function? suffixPressed(),
+  Function()? onTap,
+  bool isClickable =true
 }) =>
     TextFormField(
       controller: controller,
       keyboardType: type,
       obscureText: isPassword,
       validator: validate,
+      onTap: onTap,
+      enabled: isClickable,
       decoration: InputDecoration(
         labelText: label,
         prefixIcon: Icon(
