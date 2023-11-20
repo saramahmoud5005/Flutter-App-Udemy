@@ -1,6 +1,7 @@
 
 import 'dart:ffi';
 
+import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/models/archived_tasks/archived_tasks_screen.dart';
@@ -9,6 +10,8 @@ import 'package:flutter_app/models/new_tasks/new_tasks_screen.dart';
 import 'package:flutter_app/shared/components/components.dart';
 import 'package:intl/intl.dart';
 import 'package:sqflite/sqflite.dart';
+
+import '../shared/components/constants.dart';
 
 class HomeLayout extends StatefulWidget {
 
@@ -51,7 +54,11 @@ class _HomeLayoutState extends State<HomeLayout> {
             'Todo App'
         ),
       ),
-      body: screen[currentIndex],
+      body: ConditionalBuilder(
+        condition: tasks.length>0,
+        builder: (context)=> screen[currentIndex],
+        fallback: (context)=> Center(child: CircularProgressIndicator()),
+      ),
       floatingActionButton: FloatingActionButton(
         child: Icon(
           fabIcon,
@@ -148,29 +155,17 @@ class _HomeLayoutState extends State<HomeLayout> {
                       ),
                     ),
                   ),
-            );
+            ).closed.then((value){
+              isBottomSheetShown=false;
+              setState((){
+                fabIcon=Icons.edit;
+              });
+            });
             isBottomSheetShown=true;
             setState((){
               fabIcon=Icons.add;
             });
           }
-
-          // showModalBottomSheet(
-          //     shape: RoundedRectangleBorder(
-          //     borderRadius: BorderRadius.vertical(
-          //     top: Radius.circular(30),
-          // ),
-          // ),
-          //   context: context,
-          //   builder: (context){
-          //       return Container(
-          //           width: double.infinity,
-          //           height: 120.0,
-          //           color: Colors.blue,
-          //       );
-          //   }
-          // );
-          //insertToDatabase();
         },
       ),
       bottomNavigationBar: BottomNavigationBar(
@@ -204,10 +199,6 @@ class _HomeLayoutState extends State<HomeLayout> {
     );
   }
 
-  Future<String> getString() async {
-    return 'background Function';
-  }
-
   void createDatabase() async{
     database = await openDatabase(
       'todo.db',
@@ -220,7 +211,14 @@ class _HomeLayoutState extends State<HomeLayout> {
           print('Error when creating table ${error.toString()}');
         });
       },
-      onOpen: (database){
+      onOpen: (database) {
+        getDataFromDatabase(database).then((value) {
+          setState((){
+            tasks = value;
+            print(tasks);
+          });
+
+        });
         print('database opened');
       },
     );
@@ -236,5 +234,9 @@ class _HomeLayoutState extends State<HomeLayout> {
         print('raw inserted');
       }).catchError((error){});
     });
+  }
+
+  Future<List<Map>> getDataFromDatabase(database) async{
+     return await database.rawQuery('SELECT * FROM tasks');
   }
 }
